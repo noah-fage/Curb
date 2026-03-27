@@ -2,23 +2,9 @@
 
 import { useState } from "react";
 
-interface Email {
-  day: number;
-  label: string;
-  subject: string;
-  body: string;
-}
-
-interface Props {
-  listingDescription: string;
-  tone: string;
-}
-
-type CopyState = "idle" | "copied";
-
-function EmailCard({ email }: { email: Email }) {
+function EmailCard({ email }) {
   const [open, setOpen] = useState(false);
-  const [copyState, setCopyState] = useState<CopyState>("idle");
+  const [copyState, setCopyState] = useState("idle");
 
   const handleCopy = async () => {
     const text = `Subject: ${email.subject}\n\n${email.body}`;
@@ -29,11 +15,9 @@ function EmailCard({ email }: { email: Email }) {
 
   return (
     <div className="border border-neutral-200 rounded-xl overflow-hidden transition-shadow hover:shadow-sm">
-      {/* Header / toggle */}
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between px-5 py-4 bg-white text-left gap-4"
-        aria-expanded={open}
       >
         <div className="flex items-center gap-3 min-w-0">
           <span className="flex-shrink-0 w-8 h-8 rounded-full bg-stone-100 text-stone-600 text-xs font-semibold flex items-center justify-center">
@@ -46,10 +30,8 @@ function EmailCard({ email }: { email: Email }) {
         <ChevronIcon open={open} />
       </button>
 
-      {/* Expandable body */}
       {open && (
         <div className="px-5 pb-5 bg-white border-t border-neutral-100">
-          {/* Subject line */}
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">
             Subject
           </p>
@@ -57,7 +39,6 @@ function EmailCard({ email }: { email: Email }) {
             {email.subject}
           </p>
 
-          {/* Body */}
           <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">
             Body
           </p>
@@ -65,7 +46,6 @@ function EmailCard({ email }: { email: Email }) {
             {email.body}
           </div>
 
-          {/* Copy button */}
           <button
             onClick={handleCopy}
             className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium border border-neutral-200 text-neutral-600 hover:bg-neutral-50 transition-colors"
@@ -88,10 +68,10 @@ function EmailCard({ email }: { email: Email }) {
   );
 }
 
-export function FollowUpEmails({ listingDescription, tone }: Props) {
-  const [emails, setEmails] = useState<Email[]>([]);
+export function FollowUpEmails({ listingDescription, tone }) {
+  const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   const generate = async () => {
     setLoading(true);
@@ -162,9 +142,7 @@ export function FollowUpEmails({ listingDescription, tone }: Props) {
   );
 }
 
-// ---- tiny inline icons ----
-
-function ChevronIcon({ open }: { open: boolean }) {
+function ChevronIcon({ open }) {
   return (
     <svg
       className={`w-4 h-4 flex-shrink-0 text-neutral-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
