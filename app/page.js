@@ -118,7 +118,7 @@ export default function CurbPage() {
             Curb<span className="text-[#C9994A]">.</span>
           </span>
           <span className="text-[0.68rem] uppercase tracking-widest text-[#1A1714]/60 font-medium">
-            AI for Real Estate
+            BUILT FOR REAL ESTATE PROFESSIONALS
           </span>
         </div>
         <div className="flex items-center gap-3">

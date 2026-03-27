@@ -15,7 +15,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: 'Curb — AI Listing Copy for Real Estate Agents',
+  title: 'Curb. Built for real estate professionals',
   description: 'Generate MLS-ready listing descriptions in seconds. Powered by Claude AI.',
 };
 

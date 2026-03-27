@@ -82,5 +82,13 @@ REQUIREMENTS:
 - Reference the neighborhood's character
 - Close with a subtle call to action
 - NO clichés: do not use "won't last long", "motivated seller", "gem", "stunning", "dream home"
+- NEVER use em dashes (—) anywhere. Rewrite the sentence with a comma or period instead
+- NEVER use these words: "nestled", "delve", "certainly", "absolutely", "great"
+- NEVER stack more than two adjectives in a row
+- NEVER use semicolons
+- NEVER open with a hollow phrase like "Certainly!", "Great question!", or "Absolutely!"
+- NEVER use hedging phrases like "it's worth noting that" or "it's important to remember"
+- Write in natural flowing paragraphs, not bullet points or overly balanced three-part structures
+- Vary sentence length. Mix short punchy sentences with longer ones. This is what human writing looks like
 - Output ONLY the listing description. No titles, no preamble, no word count note.`;
 }
