@@ -1,5 +1,6 @@
 'use client';
 
+import { FollowUpEmails } from '@/components/FollowUpEmails';
 import { useState, useRef } from 'react';
 
 const TONE_OPTIONS = [
@@ -297,6 +298,9 @@ export default function CurbPage() {
                   </p>
                 )}
               </div>
+              {hasOutput && !isGenerating && (
+                <FollowUpEmails listingDescription={listing} tone={form.tone} />
+              )}
             </div>
           )}
         </main>
