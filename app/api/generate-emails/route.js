@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
+
+export const runtime = 'edge';
 
 const TONE_INSTRUCTIONS = {
   professional: "formal and polished, but not stiff — grounded and confident",
@@ -10,14 +11,14 @@ const TONE_INSTRUCTIONS = {
   energetic: "upbeat and direct, short punchy sentences, genuine enthusiasm",
 };
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   const { listingDescription, tone } = await req.json();
 
   if (!listingDescription || !tone) {
-    return NextResponse.json(
-      { error: "Missing listingDescription or tone" },
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: "Missing listingDescription or tone" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const toneGuide = TONE_INSTRUCTIONS[tone] ?? "natural and professional";
@@ -68,26 +69,27 @@ Return ONLY a valid JSON object with this exact shape, no markdown fences, no co
 
   try {
     const message = await client.messages.create({
-      model: "claude-opus-4-5",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 2000,
       messages: [{ role: "user", content: prompt }],
     });
 
     const raw = message.content
       .filter((b) => b.type === "text")
-      .map((b) => (b as { type: "text"; text: string }).text)
+      .map((b) => b.text)
       .join("");
 
-    // Strip accidental markdown fences if model adds them
     const cleaned = raw.replace(/^```(?:json)?\n?/m, "").replace(/```$/m, "").trim();
     const parsed = JSON.parse(cleaned);
 
-    return NextResponse.json(parsed);
+    return new Response(JSON.stringify(parsed), {
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
     console.error("Email generation error:", err);
-    return NextResponse.json(
-      { error: "Failed to generate emails" },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: "Failed to generate emails" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
