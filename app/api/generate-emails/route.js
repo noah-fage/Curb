@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
 
-const TONE_INSTRUCTIONS: Record<string, string> = {
+const TONE_INSTRUCTIONS = {
   professional: "formal and polished, but not stiff — grounded and confident",
   conversational: "warm and approachable, like a trusted friend in real estate",
   luxury: "elevated and understated — less is more, every word earns its place",
