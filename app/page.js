@@ -1,6 +1,6 @@
 'use client';
 
-import { FollowUpEmails } from '@/components/FollowUpEmails';
+import { OutputTabs } from '@/components/OutputTabs';
 import { useState, useRef } from 'react';
 
 const TONE_OPTIONS = [
@@ -267,40 +267,12 @@ export default function CurbPage() {
           {/* Output Card */}
           {(hasOutput || isGenerating) && (
             <div className="animate-[slideUp_0.4s_ease_both]">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[0.68rem] uppercase tracking-widest font-medium text-[#C9994A]">
-                  MLS Listing Description
-                </span>
-                {hasOutput && (
-                  <button
-                    onClick={copyListing}
-                    className={`flex items-center gap-1.5 px-3 py-1 border rounded-full text-[0.72rem] transition-all ${
-                      hasCopied
-                        ? 'border-[#5C7A65] text-[#5C7A65] bg-[#EAF0EC]'
-                        : 'border-black/10 text-[#1A1714]/60 hover:border-black/20 hover:text-[#1A1714] bg-transparent'
-                    }`}
-                  >
-                    {hasCopied ? (
-                      <><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 7l4 4 6-6"/></svg> Copied</>
-                    ) : (
-                      <><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M2 10V2h8"/></svg> Copy</>
-                    )}
-                  </button>
-                )}
-              </div>
-              <div className="bg-white border border-black/10 rounded-lg p-6 shadow-[0_2px_12px_rgba(26,23,20,0.08)]">
-                <p className={`text-[0.92rem] leading-[1.85] text-[#1A1714] font-light whitespace-pre-wrap ${isGenerating ? 'after:content-["▌"] after:text-[#C9994A] after:animate-[blink_0.8s_step-end_infinite] after:text-[0.8em] after:ml-px' : ''}`}>
-                  {listing || '\u00A0'}
-                </p>
-                {hasOutput && !isGenerating && (
-                  <p className="mt-3 text-[0.72rem] text-[#1A1714]/30">
-                    {wordCount(listing)} words
-                  </p>
-                )}
-              </div>
-              {hasOutput && !isGenerating && (
-                <FollowUpEmails listingDescription={listing} tone={form.tone} />
-              )}
+              <OutputTabs
+                listing={listing}
+                isGenerating={isGenerating}
+                tone={form.tone}
+                formData={form}
+              />
             </div>
           )}
         </main>
